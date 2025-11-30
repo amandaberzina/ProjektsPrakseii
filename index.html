@@ -22,6 +22,33 @@
       <img src="Bildes/makonis8.png" alt="makonis" />
     </div>
 
+    <h2>Uzdevumi</h2>
+    <ul id="task-list"></ul>
+    <script>
+      async function loadTasks() {
+        const { data, error } = await supabase
+          .from('Tasks')
+          .select('*');
+      
+        if (error) {
+          console.error(error);
+          return;
+        }
+      
+        const list = document.getElementById('task-list');
+        data.forEach(task => {
+          const li = document.createElement('li');
+          li.textContent = `${task.name} - ${task.done ? '✔️' : '❌'}`;
+          list.appendChild(li);
+        });
+      }
+      
+
+      loadTasks();
+    </script>
+
+
+
     <img src="Bildes/kakisgul.png" alt="kakis" id="kakits" />
 
     <section id="pogas">
