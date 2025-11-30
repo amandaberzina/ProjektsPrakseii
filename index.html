@@ -25,6 +25,10 @@
     <h2>Uzdevumi</h2>
     <ul id="task-list"></ul>
     <script>
+      const supabaseUrl = 'https://btfuqkagvlhiarlwodin.supabase.co';
+      const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0ZnVxa2FndmxoaWFybHdvZGluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM5MDEyNzMsImV4cCI6MjA3OTQ3NzI3M30.k6f6DxHUy7XD19SPrwXpcv-uRA0zAwKIqp8GrCnvXqU';
+      const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+      
       async function loadTasks() {
         const { data, error } = await supabase
           .from('Tasks')
@@ -54,9 +58,6 @@
     <section id="pogas">
       <div>
         <script>
-          const supabaseUrl = 'https://btfuqkagvlhiarlwodin.supabase.co';
-          const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0ZnVxa2FndmxoaWFybHdvZGluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM5MDEyNzMsImV4cCI6MjA3OTQ3NzI3M30.k6f6DxHUy7XD19SPrwXpcv-uRA0zAwKIqp8GrCnvXqU';
-          const supabase = supabase.createClient(supabaseUrl, supabaseKey);
           function uzSpeli() {
             window.location.href = "Spele.html";
           }
