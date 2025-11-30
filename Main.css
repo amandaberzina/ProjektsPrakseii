@@ -1,0 +1,138 @@
+
+
+
+@font-face {
+  font-family: MyFont;
+  src: url(game-paused-font/GamepauseddemoRegular-RpmY6.otf);
+}
+
+
+
+body{
+  padding-top: 50px;
+    font-family: MyFont;
+    text-align: center;
+    background-color: #d8f1ff;
+    color: #060d74;
+    background-image: url(Bildes/zale.png);
+    overflow: hidden;
+  
+}
+
+h1{
+  padding-bottom: 20px;
+  font-size: 60px;
+}
+
+#kakits{
+  width: 180px;
+  margin-bottom: -56px;
+}
+
+.poga{
+  font-family: MyFont;
+  width: 400px;
+  height: 80px;
+  background-color: rgb(187, 220, 248);
+  color: #2757a3;
+  border-color: #2757a3;
+  font-size: 28px;
+  border-radius: 20px;
+}
+
+
+#zale {
+  width: 100vw; 
+  height: 5%; 
+  display: block; 
+  position: absolute;
+  bottom: 0; 
+  left: 0;
+  right: 0;
+}
+
+.makoni{
+  position: fixed;
+  top: 0;              
+  left: 0;             
+  width: 100vw;      
+  height: 100vh;       
+  z-index: -1;         
+  overflow: hidden;
+}
+
+
+.makoni img{
+  position: absolute;
+  width: 250px;
+  opacity: 0.9;
+  animation: makoniKustas linear infinite;
+}
+
+.makoni img:nth-child(1) { top: 1%;  left: 10%; animation-duration: 45s; animation-delay: 0s; }
+.makoni img:nth-child(2) { top: 8%; left: 80%; animation-duration: 20s; animation-delay: 0s;}
+.makoni img:nth-child(3) { top: 17%; left: 30%; animation-duration: 25s; animation-delay: 0s;}
+.makoni img:nth-child(4) { top: 25%; left: 120%; animation-duration: 30s; animation-delay: 0s;}
+.makoni img:nth-child(5) { top: 30%; left: 150%; animation-duration: 50s; animation-delay: 0s;}
+.makoni img:nth-child(6) { top: 35%; left: 20%; animation-duration: 20s; animation-delay: 0s;}
+.makoni img:nth-child(7) { top: 40%; left: 70%; animation-duration: 45s; animation-delay: 0s;}
+.makoni img:nth-child(8) { top: 50%; left: 10%; animation-duration: 60s; animation-delay: 0s;}
+
+
+@keyframes makoniKustas {
+  0% {
+    transform: translateX(-300px); 
+  }
+  100% {
+    transform: translateX(100vw + 300px); /
+  }
+}
+
+
+
+iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+
+#overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.5);
+  z-index: 1000;
+}
+
+#box {
+  position: fixed; 
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 400px;
+  background: white;
+  border: 2px solid #000;
+  box-shadow: 0 0 15px rgba(0,0,0,0.5);
+}
+
+#aizvertSettings {
+  position: relative; 
+  top: 10px;
+  right: 10px;
+  background: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-weight: bold;
+  z-index: 10;
+}
+
+
+
+
+

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="Main.css" />
+
+    <title>Kakisi</title>
+  </head>
+  <body>
+    <h1>CAT SUDOKU</h1>
+
+    <div class="makoni">
+      <img src="Bildes/makonis1.png" alt="makonis" />
+      <img src="Bildes/makonis2.png" alt="makonis" />
+      <img src="Bildes/makonis3.png" alt="makonis" />
+      <img src="Bildes/makonis4.png" alt="makonis" />
+      <img src="Bildes/makonis5.png" alt="makonis" />
+      <img src="Bildes/makonis6.png" alt="makonis" />
+      <img src="Bildes/makonis7.png" alt="makonis" />
+      <img src="Bildes/makonis8.png" alt="makonis" />
+    </div>
+
+    <img src="Bildes/kakisgul.png" alt="kakis" id="kakits" />
+
+    <section id="pogas">
+      <div>
+        <script>
+          function uzSpeli() {
+            window.location.href = "Spele.html";
+          }
+        </script>
+
+        <button class="poga" onclick="uzSpeli() ">START</button>
+      </div>
+
+      <br />
+
+      <div>
+        <button class="poga" onclick="atvertSettings()">SETTINGS</button>
+      </div>
+
+      <div id="overlay">
+        <div id="box">
+          <button id="aizvert" onclick="aizvertSettings()">X</button>
+          <iframe id="popup" src=""></iframe>
+        </div>
+      </div>
+
+      <script>
+        function atvertSettings() {
+          document.getElementById("popup").src = "settings.html";
+          document.getElementById("overlay").style.display = "block";
+        }
+
+        function aizvertSettings() {
+          document.getElementById("overlay").style.display = "none";
+          document.getElementById("popup").src = "";
+        }
+      </script>
+
+      <img src="Bildes/zale.png" alt="zale" id="zale" />
+    </section>
+  </body>
+</html>

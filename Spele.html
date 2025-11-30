@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kakisu Sudoku</title>
+
+<link rel="stylesheet" href="spele.css">
+<script src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
+<script src="https://mczak.com/code/sudoku/js/sudoku2.js"></script>
+
+<style>
+.sudoku-board-cell input[readonly] {
+    cursor: pointer;
+    background-color: #fdf6e3;
+}
+#cat-palette img {
+    width: 50px;
+    height: 50px;
+    margin: 2px;
+    cursor: pointer;
+}
+#cat-palette img.selected {
+    border: 2px solid blue;
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+    <label for="toggleCandidates">Show candidates </label>
+    <input id="toggleCandidates" class="js-candidate-toggle" type="checkbox"/>
+
+    <div>
+        <button type="button" class="sudokubutton1 js-generate-board-btn--easy">Easy</button>
+        <button type="button" class="sudokubutton2 js-generate-board-btn--medium">Medium</button>
+        <button type="button" class="sudokubutton3 js-generate-board-btn--hard">Hard</button>
+        <button type="button" class="sudokubutton4 js-generate-board-btn--very-hard">Very Hard</button>
+    </div>
+
+    <div id="sudoku" class="sudoku-board"></div>
+
+    <div>
+        Solve: 
+        <button type="button" class="sudokubutton5 js-solve-step-btn">One Step</button>
+        <button type="button" class="sudokubutton6 js-solve-all-btn">All</button>
+    </div>
+
+    <div>
+        Clear: <button type="button" class="sudokubutton7 js-clear-board-btn">Board</button>
+    </div>
+
+    <div id="cat-palette">
+        <img src="Bildes/kakis1.png" data-value="1">
+        <img src="Bildes/kakis2.png" data-value="2">
+        <img src="Bildes/kakis3.png" data-value="3">
+        <img src="Bildes/kakis4.png" data-value="4">
+        <img src="Bildes/kakis5.png" data-value="5">
+        <img src="Bildes/kakis6.png" data-value="6">
+        <img src="Bildes/kakis7.png" data-value="7">
+        <img src="Bildes/kakis8.png" data-value="8">
+        <img src="Bildes/kakis9.png" data-value="9">
+    </div>
+
+</div>
+
+<script>
+$(function() {
+
+    var $candidateToggle = $(".js-candidate-toggle"),
+        $generateBoardBtnEasy = $(".js-generate-board-btn--easy"),
+        $generateBoardBtnMedium = $(".js-generate-board-btn--medium"),
+        $generateBoardBtnHard = $(".js-generate-board-btn--hard"),
+        $generateBoardBtnVeryHard = $(".js-generate-board-btn--very-hard"),
+        $solveStepBtn = $(".js-solve-step-btn"),
+        $solveAllBtn = $(".js-solve-all-btn"),
+        $clearBoardBtn = $(".js-clear-board-btn"),
+        mySudokuJS = $("#sudoku").sudokuJS({
+            difficulty: "very hard",
+            candidateShowToggleFn: function(showing){
+                $candidateToggle.prop("checked", showing);
+            }
+        });
+
+    $solveStepBtn.on("click", mySudokuJS.solveStep);
+    $solveAllBtn.on("click", mySudokuJS.solveAll);
+    $clearBoardBtn.on("click", mySudokuJS.clearBoard);
+
+    function setupBoard(difficulty) {
+        mySudokuJS.generateBoard(difficulty);
+        setTimeout(() => {
+            replaceNumbersWithImages();
+            makeCellsReadOnly();
+        }, 100);
+    }
+
+    $generateBoardBtnEasy.on("click", () => setupBoard("easy"));
+    $generateBoardBtnMedium.on("click", () => setupBoard("medium"));
+    $generateBoardBtnHard.on("click", () => setupBoard("hard"));
+    $generateBoardBtnVeryHard.on("click", () => setupBoard("very hard"));
+
+    $candidateToggle.on("change", function(){
+        if($candidateToggle.is(":checked")) mySudokuJS.showCandidates();
+        else mySudokuJS.hideCandidates();
+    });
+    $candidateToggle.trigger("change");
+
+    function replaceNumbersWithImages() {
+        document.querySelectorAll('.sudoku-board-cell input').forEach(input => {
+            const num = input.value.trim();
+            const cell = input.parentElement;
+
+            if (/^[1-9]$/.test(num)) {
+                cell.style.background = `url('Bildes/kakis${num}.png') center/contain no-repeat`;
+                input.style.color = 'transparent';
+            } else {
+                cell.style.background = '';
+                input.style.color = '';
+            }
+        });
+    }
+
+    function makeCellsReadOnly() {
+        document.querySelectorAll('.sudoku-board-cell input').forEach(input => {
+            input.readOnly = true;
+            input.style.cursor = 'pointer';
+        });
+    }
+
+    // === CAT CLICK SYSTEM ===
+    let selectedCat = null;
+
+    const catImages = document.querySelectorAll('#cat-palette img');
+
+    catImages.forEach(img => {
+        img.addEventListener("click", () => {
+            selectedCat = img.dataset.value;
+            catImages.forEach(i => i.classList.remove("selected"));
+            img.classList.add("selected");
+        });
+    });
+
+    // Place cat by clicking cell
+    document.addEventListener("click", e => {
+        if(selectedCat && e.target.matches(".sudoku-board-cell input")) {
+            e.target.value = selectedCat;
+            replaceNumbersWithImages();
+        }
+    });
+
+    // Initialize first board
+    setupBoard("very hard");
+
+});
+</script>
+
+</body>
+</html>
