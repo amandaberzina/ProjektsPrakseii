@@ -34,30 +34,32 @@
     <h2>Uzdevumi</h2>
     <ul id="task-list"></ul>
     <script>
-
-      
       async function loadTasks() {
         const { data, error } = await supabase
           .from('Tasks')
           .select('*');
-      
+    
         if (error) {
-          console.error(error);
+          console.error("Supabase error:", error);
+          alert("Could not load tasks: " + error.message);
           return;
         }
-      
+    
         const list = document.getElementById('task-list');
+        list.innerHTML = ''; // Clear existing list
+        if (!data || data.length === 0) {
+          list.innerHTML = '<li>No tasks found.</li>';
+          return;
+        }
         data.forEach(task => {
           const li = document.createElement('li');
-          li.textContent = `${task.name} - ${task.done ? '✔️' : '❌'}`;
+          li.textContent = `${task.name || 'Unnamed'} - ${task.done ? '✔️' : '❌'}`;
           list.appendChild(li);
         });
       }
-      
-
+    
       loadTasks();
     </script>
-
 
 
     <img src="Bildes/kakisgul.png" alt="kakis" id="kakits" />
