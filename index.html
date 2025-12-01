@@ -22,6 +22,46 @@
       <img src="Bildes/makonis8.png" alt="makonis" />
     </div>
 
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/supabase.min.js"></script>
+    <script>
+      const supabaseUrl = 'https://btfuqkagvlhiarlwodin.supabase.co';
+      const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0ZnVxa2FndmxoaWFybHdvZGluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM5MDEyNzMsImV4cCI6MjA3OTQ3NzI3M30.k6f6DxHUy7XD19SPrwXpcv-uRA0zAwKIqp8GrCnvXqU';
+      const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+    </script>
+
+    
+    <h2>Uzdevumi</h2>
+    <ul id="task-list"></ul>
+    <script>
+      async function loadTasks() {
+        const { data, error } = await supabase
+          .from('Tasks')
+          .select('*');
+    
+        if (error) {
+          console.error("Supabase error:", error);
+          alert("Could not load tasks: " + error.message);
+          return;
+        }
+    
+        const list = document.getElementById('task-list');
+        list.innerHTML = ''; // Clear existing list
+        if (!data || data.length === 0) {
+          list.innerHTML = '<li>No tasks found.</li>';
+          return;
+        }
+        data.forEach(task => {
+          const li = document.createElement('li');
+          li.textContent = `${task.name || 'Unnamed'} - ${task.done ? '✔️' : '❌'}`;
+          list.appendChild(li);
+        });
+      }
+    
+      loadTasks();
+    </script>
+
+
     <img src="Bildes/kakisgul.png" alt="kakis" id="kakits" />
 
     <section id="pogas">
